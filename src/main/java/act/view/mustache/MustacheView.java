@@ -61,14 +61,6 @@ public class MustacheView extends View {
         mf = new DefaultMustacheFactory(templateHome().substring(1));
     }
 
-    List<String> loadContent(String template) {
-        File file = new File(templateRootDir(), template);
-        if (file.exists() && file.canRead()) {
-            return IO.readLines(file);
-        }
-        return C.list();
-    }
-
 
     private Template loadTemplateFromCache(String path) {
         if (!cacheEnabled) {
