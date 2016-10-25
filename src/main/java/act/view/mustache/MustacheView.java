@@ -8,11 +8,7 @@ import act.view.View;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheNotFoundException;
-import org.osgl.util.C;
-import org.osgl.util.IO;
 
-import java.io.File;
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
