@@ -8,7 +8,9 @@ import act.view.View;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheNotFoundException;
+import org.osgl.util.S;
 
+import java.io.StringReader;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -18,6 +20,7 @@ public class MustacheView extends View {
 
     DefaultMustacheFactory mf;
     private boolean cacheEnabled = Act.isProd();
+    private String suffix;
 
     private ConcurrentMap<String, Template> templateCache = new ConcurrentHashMap<String, Template>();
 
@@ -42,7 +45,10 @@ public class MustacheView extends View {
                 Mustache mustache = mf.compile(resourcePath);
                 template = new MustacheTemplate(mustache);
             } catch (MustacheNotFoundException e) {
-                return null;
+                if (resourcePath.endsWith(suffix)) {
+                    return null;
+                }
+                return loadTemplate(S.concat(resourcePath, suffix), context);
             } finally {
                 t0.setContextClassLoader(cl0);
             }
@@ -52,9 +58,26 @@ public class MustacheView extends View {
     }
 
     @Override
+    protected Template loadInlineTemplate(String content, ActContext actContext) {
+        Template template = loadTemplateFromCache(content);
+        if (null == template) {
+            Mustache mustache = mf.compile(new StringReader(content), content);
+            template = new MustacheTemplate(mustache);
+            cacheTemplate(content, template);
+        }
+        return template;
+    }
+
+    @Override
     protected void init(App app) {
         // Mustache class path resource resolver cannot resolve path start with "/"
         mf = new DefaultMustacheFactory(templateHome().substring(1));
+        suffix = app.config().get("view.mustache.suffix");
+        if (null == suffix) {
+            suffix = ".mustache";
+        } else {
+            suffix = suffix.startsWith(".") ? suffix : S.concat(".", suffix);
+        }
     }
 
 
