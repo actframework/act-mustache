@@ -20,25 +20,14 @@ package act.view.mustache;
  * #L%
  */
 
-import act.view.TemplateBase;
-import com.github.mustachejava.Mustache;
-import org.osgl.$;
+import org.junit.Test;
+import org.osgl.ut.TestBase;
 
-import java.io.StringWriter;
-import java.util.Map;
+public class VersionTest extends TestBase {
 
-public class MustacheTemplate extends TemplateBase {
-
-    private Mustache mustache;
-
-    MustacheTemplate(Mustache mustache) {
-        this.mustache = $.notNull(mustache);
+    @Test
+    public void versionShallContainsMustache() {
+        yes(MustacheView.VERSION.toString().contains("mustache"));
     }
 
-    @Override
-    protected String render(Map<String, Object> renderArgs) {
-        StringWriter sw = new StringWriter();
-        mustache.execute(sw, renderArgs);
-        return sw.toString();
-    }
 }
