@@ -2,6 +2,10 @@
 
 1.1.0
 * update to ACT 1.4.11
+* improve maven build process
+* apply osgl-bootstrap versioning
+* add badges to README
+* apply javadoc stylesheet
 
 1.0.0
 - the first formal release
