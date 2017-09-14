@@ -1,5 +1,8 @@
 # act-mustache CHANGE LOG
 
+1.1.1
+* Allow direct write to response
+
 1.1.0
 * update to ACT 1.4.11
 * improve maven build process
