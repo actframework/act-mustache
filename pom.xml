@@ -21,7 +21,7 @@
   <groupId>org.actframework</groupId>
   <artifactId>act-mustache</artifactId>
   <packaging>jar</packaging>
-  <version>1.2.1</version>
+  <version>1.2.2-SNAPSHOT</version>
 
   <name>ACT Mustache</name>
   <description>Implement ActFramework View with mustache template engine</description>
