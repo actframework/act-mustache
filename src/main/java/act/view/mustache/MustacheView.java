@@ -22,18 +22,20 @@ package act.view.mustache;
 
 import act.Act;
 import act.app.App;
-import act.util.ActContext;
 import act.view.Template;
 import act.view.View;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheNotFoundException;
-import org.osgl.bootstrap.Version;
+import org.osgl.util.IO;
 import org.osgl.util.S;
+import osgl.version.Version;
+import osgl.version.Versioned;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+@Versioned
 public class MustacheView extends View {
 
     public static final Version VERSION = Version.of(MustacheView.class);
@@ -52,17 +54,18 @@ public class MustacheView extends View {
     }
 
     @Override
-    protected Template loadTemplate(String resourcePath, ActContext context) {
+    protected Template loadTemplate(String resourcePath) {
         Template template = loadTemplateFromCache(resourcePath);
         if (null == template) {
             Thread t0 = Thread.currentThread();
             ClassLoader cl0 = t0.getContextClassLoader();
             try {
-                t0.setContextClassLoader(context.app().classLoader());
+                App app = Act.app();
+                t0.setContextClassLoader(app.classLoader());
                 if (!cacheEnabled) {
                     // ensure new MustacheFactory instance to allow
                     // template reload when running in dev mode
-                    init(context.app());
+                    init(app);
                 }
                 Mustache mustache = mf.compile(resourcePath);
                 template = new MustacheTemplate(mustache);
@@ -70,13 +73,19 @@ public class MustacheView extends View {
                 if (resourcePath.endsWith(suffix)) {
                     return null;
                 }
-                return loadTemplate(S.concat(resourcePath, suffix), context);
+                return loadTemplate(S.concat(resourcePath, suffix));
             } finally {
                 t0.setContextClassLoader(cl0);
             }
             cacheTemplate(resourcePath, template);
         }
         return template;
+    }
+
+    @Override
+    protected Template loadInlineTemplate(String content) {
+        Mustache mustache = mf.compile(IO.reader(content), content);
+        return new MustacheTemplate(mustache);
     }
 
     @Override

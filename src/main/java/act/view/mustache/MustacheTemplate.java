@@ -24,7 +24,6 @@ import act.Act;
 import act.view.TemplateBase;
 import com.github.mustachejava.Mustache;
 import org.osgl.$;
-import org.osgl.bootstrap.Version;
 import org.osgl.http.H;
 import org.osgl.util.IO;
 
@@ -33,8 +32,6 @@ import java.io.Writer;
 import java.util.Map;
 
 public class MustacheTemplate extends TemplateBase {
-
-    public static final Version VERSION = MustacheView.VERSION;
 
     private final Mustache mustache;
     private final boolean directWrite;
