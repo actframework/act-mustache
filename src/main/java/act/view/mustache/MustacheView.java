@@ -26,6 +26,7 @@ import act.view.Template;
 import act.view.View;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
+import com.github.mustachejava.MustacheException;
 import com.github.mustachejava.MustacheNotFoundException;
 import org.osgl.util.IO;
 import org.osgl.util.S;
@@ -74,6 +75,8 @@ public class MustacheView extends View {
                     return null;
                 }
                 return loadTemplate(S.concat(resourcePath, suffix));
+            } catch (MustacheException e) {
+                throw new MustacheTemplateException(e);
             } finally {
                 t0.setContextClassLoader(cl0);
             }
@@ -84,8 +87,12 @@ public class MustacheView extends View {
 
     @Override
     protected Template loadInlineTemplate(String content) {
-        Mustache mustache = mf.compile(IO.reader(content), content);
-        return new MustacheTemplate(mustache);
+        try {
+            Mustache mustache = mf.compile(IO.reader(content), content);
+            return new MustacheTemplate(mustache);
+        } catch (RuntimeException e) {
+            throw new MustacheTemplateException(e);
+        }
     }
 
     @Override

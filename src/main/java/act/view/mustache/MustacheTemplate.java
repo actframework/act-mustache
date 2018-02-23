@@ -47,6 +47,8 @@ public class MustacheTemplate extends TemplateBase {
             Writer writer = response.writer();
             try {
                 mustache.execute(writer, renderArgs);
+            } catch (RuntimeException e) {
+                throw new MustacheTemplateException(e);
             } finally {
                 IO.close(writer);
             }
@@ -58,7 +60,11 @@ public class MustacheTemplate extends TemplateBase {
     @Override
     protected String render(Map<String, Object> renderArgs) {
         StringWriter sw = new StringWriter();
-        mustache.execute(sw, renderArgs);
+        try {
+            mustache.execute(sw, renderArgs);
+        } catch (RuntimeException e) {
+            throw new MustacheTemplateException(e);
+        }
         return sw.toString();
     }
 }
