@@ -1,5 +1,8 @@
 # act-mustache CHANGE LOG
 
+1.4.2
+* update act to 1.8.2
+
 1.4.1
 * Provide template error screen for dev mode #1
 
