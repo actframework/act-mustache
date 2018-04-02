@@ -1,5 +1,8 @@
 # act-mustache CHANGE LOG
 
+1.4.3
+* update act to 1.8.5
+
 1.4.2
 * update act to 1.8.2
 
