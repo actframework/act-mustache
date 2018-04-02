@@ -1,13 +1,11 @@
 # act-mustache CHANGE LOG
 
-1.4.3
+1.4.2 - 02/Apr/2018
 * update act to 1.8.5
-
-1.4.2
-* update act to 1.8.2
 
 1.4.1
 * Provide template error screen for dev mode #1
+* update act to 1.8.2
 
 1.4.0
 * update to act-1.7.x
