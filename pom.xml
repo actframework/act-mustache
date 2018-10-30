@@ -20,7 +20,7 @@
 
   <artifactId>act-mustache</artifactId>
   <packaging>jar</packaging>
-  <version>1.4.5-SNAPSHOT</version>
+  <version>1.4.5</version>
 
   <name>ACT Mustache</name>
   <description>Implement ActFramework View with mustache template engine</description>
