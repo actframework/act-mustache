@@ -1,5 +1,8 @@
 # act-mustache CHANGE LOG
 
+1.4.5 - 30/Oct/2018
+* update act to 1.8.8
+
 1.4.4 - 19/Jun/2018
 * update act to 1.8.8-RC10
 
