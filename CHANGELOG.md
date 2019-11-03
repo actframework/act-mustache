@@ -1,5 +1,8 @@
 # act-mustache CHANGE LOG
 
+1.5.0 - 03/Nov/2019
+* update act to 1.8.29
+
 1.4.6 - 21/May/2018
 * update act to 1.8.22
 * update mustache to 0.9.6
